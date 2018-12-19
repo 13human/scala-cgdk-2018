@@ -1,6 +1,7 @@
 import java.io._
 import java.net.{InetSocketAddress, Socket}
 import java.nio.charset.StandardCharsets
+import scala.collection.JavaConverters._
 
 import com.google.gson.Gson
 import model.{Action, Game, Rules}
@@ -29,7 +30,7 @@ class RemoteProcessClient(host: String, port: Int) {
   }
 
   def write(actions: Map[Int, Action]): Unit = {
-    val json = gson.toJson(actions)
+    val json = gson.toJson(actions.asJava)
     output.write(json)
     output.write("\n")
     output.flush()
